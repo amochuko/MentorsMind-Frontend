@@ -1,5 +1,5 @@
-import { useState, useCallback, useMemo } from 'react';
-import type { MentorDashboardData, Session, SessionStatus } from '../types';
+import { useState, useCallback } from 'react';
+import type { MentorDashboardData, SessionStatus } from '../types';
 
 const MOCK_DATA: MentorDashboardData = {
   upcomingSessions: [
@@ -8,7 +8,7 @@ const MOCK_DATA: MentorDashboardData = {
       learnerId: 'u1',
       learnerName: 'Alice Johnson',
       topic: 'Stellar Smart Contracts Introduction',
-      startTime: new Array(new Date().getTime() + 3600000).map(t => new Date(t).toISOString())[0] || new Date(Date.now() + 3600000).toISOString(),
+      startTime: new Date(Date.now() + 3600000).toISOString(),
       duration: 60,
       status: 'pending',
       price: 50,
@@ -80,7 +80,7 @@ const MOCK_DATA: MentorDashboardData = {
 
 export const useMentorDashboard = () => {
   const [data, setData] = useState<MentorDashboardData>(MOCK_DATA);
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   const updateSessionStatus = useCallback((sessionId: string, status: SessionStatus) => {
     setData(prev => ({

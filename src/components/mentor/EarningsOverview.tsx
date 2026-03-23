@@ -30,9 +30,12 @@ const EarningsOverview: React.FC<EarningsOverviewProps> = ({ earnings, onExport 
       </div>
 
       <div className="flex gap-4 mb-8">
-        <div className="flex-1 bg-stellar/5 rounded-2xl p-4 border border-stellar/10">
-          <div className="text-[10px] font-bold text-stellar uppercase mb-1">Pending Payout</div>
-          <div className="text-xl font-bold text-gray-900">{earnings.pendingPayout} <span className="text-xs">XLM</span></div>
+        <div className="flex-1 bg-stellar/10 rounded-2xl p-4 border-2 border-stellar/20 shadow-inner">
+          <div className="text-[10px] font-bold text-stellar uppercase mb-1 flex items-center gap-1">
+            <div className="w-1 h-1 rounded-full bg-stellar" />
+            Pending Payout
+          </div>
+          <div className="text-2xl font-black text-gray-900">{earnings.pendingPayout} <span className="text-sm font-bold opacity-50">XLM</span></div>
         </div>
         <div className="flex-1 bg-green-50 rounded-2xl p-4 border border-green-100">
           <div className="text-[10px] font-bold text-green-600 uppercase mb-1">Status</div>

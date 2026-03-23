@@ -1,9 +1,6 @@
-// Note: These are conceptual tests for Vitest/React Testing Library
-
-/*
-import { render, screen, fireEvent } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 import { useOnboarding } from '../hooks/useOnboarding';
-import OnboardingWizard from '../components/onboarding/OnboardingWizard';
+import { describe, test, expect } from 'vitest';
 
 describe('Mentor Onboarding', () => {
   test('Wizard navigates through steps correctly', () => {
@@ -27,10 +24,7 @@ describe('Mentor Onboarding', () => {
       result.current.nextStep(); // to availability
     });
     
-    // (2 completed / 5 total steps) * 100 = 40%
-    expect(result.current.progress).toBe(40);
+    // (3 completed / 5 total steps) * 100 = 60%
+    expect(result.current.progress).toBe(60);
   });
 });
-*/
-
-console.log('Test file created for Onboarding Wizard');

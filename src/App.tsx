@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import MentorOnboarding from './components/onboarding/MentorOnboarding';
 import LearnerOnboarding from './pages/LearnerOnboarding';
+import MentorDashboard from './pages/MentorDashboard';
+import MentorSearch from './pages/MentorSearch';
 import RatingBreakdown from './components/reviews/RatingBreakdown';
 import ReviewForm from './components/reviews/ReviewForm';
 import ReviewList from './components/reviews/ReviewList';
@@ -13,6 +15,7 @@ import MetricCard from './components/charts/MetricCard';
 import SearchPage from './pages/SearchPage';
 
 function App() {
+  const [view, setView] = useState<'onboarding' | 'learner' | 'dashboard' | 'search' | 'reviews' | 'analytics'>('onboarding');
   const [view, setView] = useState<'onboarding' | 'learner' | 'reviews' | 'analytics' | 'search'>('search');
   const [showForm, setShowForm] = useState(false);
   
@@ -56,6 +59,22 @@ function App() {
               Learner Onboarding
             </button>
             <button
+              onClick={() => setView('dashboard')}
+              className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+                view === 'dashboard' ? 'bg-white shadow-sm text-stellar' : 'text-gray-400 hover:text-gray-600'
+              }`}
+            >
+              Mentor Dashboard
+            </button>
+            <button
+              onClick={() => setView('search')}
+              className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+                view === 'search' ? 'bg-white shadow-sm text-stellar' : 'text-gray-400 hover:text-gray-600'
+              }`}
+            >
+              Find Mentors
+            </button>
+            <button
               onClick={() => setView('analytics')}
               className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
                 view === 'analytics' ? 'bg-white shadow-sm text-stellar' : 'text-gray-400 hover:text-gray-600'
@@ -89,6 +108,10 @@ function App() {
           <MentorOnboarding />
         ) : view === 'learner' ? (
           <LearnerOnboarding />
+        ) : view === 'dashboard' ? (
+          <MentorDashboard />
+        ) : view === 'search' ? (
+          <MentorSearch />
         ) : view === 'analytics' ? (
           <AnalyticsDashboard />
         ) : view === 'search' ? (

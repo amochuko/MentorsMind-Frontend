@@ -16,6 +16,8 @@ import AreaChart from './components/charts/AreaChart';
 import MetricCard from './components/charts/MetricCard';
 import SearchPage from './pages/SearchPage';
 
+import PricingSettings from './components/mentor/PricingSettings';
+
 function App() {
   const [view, setView] = useState<'onboarding' | 'learner' | 'wallet' | 'reviews' | 'analytics'>('onboarding');
   const [showForm, setShowForm] = useState(false);
@@ -68,7 +70,7 @@ function App() {
             </button>
             <button
               onClick={() => setView('learner')}
-              className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+              className={`px-4 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${
                 view === 'learner' ? 'bg-white shadow-sm text-stellar' : 'text-gray-400 hover:text-gray-600'
               }`}
             >
@@ -84,7 +86,7 @@ function App() {
             </button>
             <button
               onClick={() => setView('analytics')}
-              className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+              className={`px-4 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${
                 view === 'analytics' ? 'bg-white shadow-sm text-stellar' : 'text-gray-400 hover:text-gray-600'
               }`}
             >
@@ -92,7 +94,7 @@ function App() {
             </button>
             <button
               onClick={() => setView('reviews')}
-              className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+              className={`px-4 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${
                 view === 'reviews' ? 'bg-white shadow-sm text-stellar' : 'text-gray-400 hover:text-gray-600'
               }`}
             >

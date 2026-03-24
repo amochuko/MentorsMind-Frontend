@@ -217,4 +217,19 @@ export interface RecentlyViewedMentor {
   mentorId: string;
   viewedAt: string;
   mentor: MentorProfile;
+export type UserRole = 'mentor' | 'learner' | 'admin';
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+  avatar?: string;
+  bio?: string;
+}
+
+export interface AuthState {
+  user: User | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
 }

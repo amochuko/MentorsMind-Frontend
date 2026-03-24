@@ -12,9 +12,11 @@ import BarChart from './components/charts/BarChart';
 import PieChart from './components/charts/PieChart';
 import AreaChart from './components/charts/AreaChart';
 import MetricCard from './components/charts/MetricCard';
+import SearchPage from './pages/SearchPage';
 
 function App() {
   const [view, setView] = useState<'onboarding' | 'learner' | 'dashboard' | 'search' | 'reviews' | 'analytics'>('onboarding');
+  const [view, setView] = useState<'onboarding' | 'learner' | 'reviews' | 'analytics' | 'search'>('search');
   const [showForm, setShowForm] = useState(false);
   
   const { 
@@ -88,6 +90,14 @@ function App() {
             >
               Ratings & Reviews
             </button>
+            <button
+              onClick={() => setView('search')}
+              className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+                view === 'search' ? 'bg-white shadow-sm text-stellar' : 'text-gray-400 hover:text-gray-600'
+              }`}
+            >
+              Search & Discovery
+            </button>
           </div>
           <div className="w-8 h-8 rounded-full bg-stellar/10 border border-stellar/20" />
         </div>
@@ -104,6 +114,8 @@ function App() {
           <MentorSearch />
         ) : view === 'analytics' ? (
           <AnalyticsDashboard />
+        ) : view === 'search' ? (
+          <SearchPage />
         ) : (
           <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="flex justify-between items-end">

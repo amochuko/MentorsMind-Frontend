@@ -9,6 +9,7 @@ import LearnerOnboarding from './pages/LearnerOnboarding';
 import MentorWallet from './pages/MentorWallet';
 import LearningGoals from './pages/LearningGoals';
 import MentorProfileSetup from './pages/MentorProfileSetup';
+import Settings from './pages/Settings';
 import RatingBreakdown from './components/reviews/RatingBreakdown';
 import ReviewForm from './components/reviews/ReviewForm';
 import ReviewList from './components/reviews/ReviewList';
@@ -40,7 +41,7 @@ const BarChart = lazy(loadBarChart);
 const PieChart = lazy(loadPieChart);
 const AreaChart = lazy(loadAreaChart);
 
-type AppView = 'onboarding' | 'learner' | 'wallet' | 'search' | 'reviews' | 'analytics' | 'profile';
+type AppView = 'onboarding' | 'learner' | 'wallet' | 'search' | 'reviews' | 'analytics' | 'profile' | 'settings';
 
 const earningsData = [
   { label: 'Jan', earnings: 1200, sessions: 8 },
@@ -164,6 +165,7 @@ function App() {
     wallet: loadMentorWallet,
     analytics: loadAreaChart,
     reviews: loadReviewList,
+    settings: () => Promise.resolve(),
   };
 
   return (
@@ -237,9 +239,56 @@ function App() {
           </div>
         </nav>
 
+          <div className="hidden items-center gap-2 rounded-2xl bg-gray-50 p-1 md:flex">
+            {[
+              { id: 'search', label: 'Search & Booking' },
+              { id: 'learner', label: 'Learner Onboarding' },
+              { id: 'onboarding', label: 'Mentor Onboarding' },
+              { id: 'profile', label: 'Profile Setup' },
+              { id: 'wallet', label: 'Wallet' },
+              { id: 'analytics', label: 'Analytics' },
+              { id: 'reviews', label: 'Reviews' },
+              { id: 'settings', label: 'Settings' },
+            ].map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => handleViewChange(item.id as AppView, item.label)}
+                onMouseEnter={() => preloaders[item.id as AppView]?.()}
+                onFocus={() => preloaders[item.id as AppView]?.()}
+                className={`rounded-xl px-4 py-2 text-sm font-bold transition-all ${
+                  view === item.id ? 'bg-white text-stellar shadow-sm' : 'text-gray-500 hover:text-gray-800'
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setA11yOpen(true)}
+            aria-label="Open accessibility settings"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-stellar/20 bg-stellar/10 text-stellar"
+          >
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="3" strokeWidth="2" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+              />
+            </svg>
+          </button>
+        </div>
+      </nav>
+
       {/* Main content area */}
       <main id="main-content" tabIndex={-1} className="max-w-7xl mx-auto px-4 pt-10 outline-none">
-        {view === 'onboarding' ? (
+        {view === 'settings' ? (
+          <Settings />
+        ) : view === 'onboarding' ? (
           <MentorOnboarding />
         ) : view === 'learner' ? (
           <LearnerOnboarding />

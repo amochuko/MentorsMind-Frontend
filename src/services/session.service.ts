@@ -9,5 +9,15 @@ export default class SessionService {
     });
   }
 
-
+  async getSession(id: string) {
+    return request<{ status: string }>(
+      {
+        method: "GET",
+        url: "/sessions",
+        data: { id },
+      },
+      true,
+    );
+  }
+  
 }

@@ -7,7 +7,7 @@ import { Link } from "lucide-react";
 import TimeDisplay from "../components/ui/TimeDisplay";
 import { useTimezone } from "../hooks/useTimezone";
 
-const MentorSessions: React.FC = () => {
+const MentorSessions: React.FC<{ isOnline?: boolean }> = ({ isOnline = true }) => {
   const { data, refresh } = useMentorSessions();
   const [activeTab, setActiveTab] = useState<"upcoming" | "completed">(
     "upcoming",
@@ -23,7 +23,6 @@ const MentorSessions: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 animate-in fade-in duration-700">
-      {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-6 mb-10">
         <div>
           <div className="flex items-center gap-3 mb-2">
@@ -44,15 +43,18 @@ const MentorSessions: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={refresh}
-            className="px-6 py-3 border border-stellar text-stellar font-bold rounded-2xl hover:bg-stellar/5 transition-all shadow-sm"
-            disabled={data.loading}
+            className={`px-6 py-3 border font-bold rounded-2xl transition-all shadow-sm ${
+              !isOnline
+                ? "border-gray-200 text-gray-400 cursor-not-allowed"
+                : "border-stellar text-stellar hover:bg-stellar/5"
+            }`}
+            disabled={data.loading || !isOnline}
           >
-            {data.loading ? "Refreshing..." : "⟳ Refresh"}
+            {data.loading ? "Refreshing..." : !isOnline ? "Offline" : "⟳ Refresh"}
           </button>
         </div>
       </div>
 
-      {/* Tabs */}
       <div className="flex border-b border-gray-100 mb-8 overflow-x-auto no-scrollbar">
         {(["upcoming", "completed"] as const).map((tab) => (
           <button
@@ -69,7 +71,6 @@ const MentorSessions: React.FC = () => {
         ))}
       </div>
 
-      {/* Content */}
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
           <SessionList
@@ -79,7 +80,6 @@ const MentorSessions: React.FC = () => {
           />
         </div>
 
-        {/* Quick Stats Sidebar */}
         <div className="space-y-6">
           <div className="bg-gradient-to-br from-stellar to-stellar-dark text-white rounded-3xl p-8 shadow-xl">
             <h3 className="font-bold text-xl mb-4">Quick Stats</h3>
@@ -119,7 +119,7 @@ const MentorSessions: React.FC = () => {
                   Confirm {session.learnerName} (
                   <TimeDisplay
                     date={session.startTime}
-                    userTimezone={userTimezone} 
+                    userTimezone={userTimezone}
                     mentorTimezone={session.mentorTimezone}
                     showRelative={false}
                     use24h={timeFormat === "24h"}

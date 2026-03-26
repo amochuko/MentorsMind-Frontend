@@ -388,6 +388,7 @@ export type {
   NoteTemplate,
   NoteAttachment,
   NoteVersion,
+  ResourceLink,
   BookmarkedResource,
   LearnerNote,
   FeedbackCategoryRatings,
